@@ -1,6 +1,10 @@
 radio.onReceivedNumber(function (receivedNumber) {
     ell = receivedNumber
 })
+input.onButtonPressed(Button.A, function () {
+    punts = 0
+    basic.showNumber(punts)
+})
 input.onGesture(Gesture.Shake, function () {
     jo = randint(1, 3)
     radio.sendNumber(jo)
@@ -14,8 +18,9 @@ input.onGesture(Gesture.Shake, function () {
             . . . . .
             `)
         if (ell == 3) {
-            soundExpression.happy.play()
+            soundExpression.happy.playUntilDone()
             punts += 1
+            basic.showNumber(punts)
         }
     } else if (jo == 2) {
         basic.showLeds(`
@@ -26,8 +31,9 @@ input.onGesture(Gesture.Shake, function () {
             # # # # #
             `)
         if (ell == 1) {
-            soundExpression.happy.play()
+            soundExpression.happy.playUntilDone()
             punts += 1
+            basic.showNumber(punts)
         }
     } else {
         basic.showLeds(`
@@ -38,19 +44,24 @@ input.onGesture(Gesture.Shake, function () {
             # # . . #
             `)
         if (ell == 2) {
-            soundExpression.happy.play()
+            soundExpression.happy.playUntilDone()
             punts += 1
+            basic.showNumber(punts)
         }
     }
     ell = 0
-    if (jo == 3) {
+    if (punts == 3) {
+        soundExpression.soaring.playUntilDone()
         basic.showIcon(IconNames.Yes)
-        soundExpression.happy.play()
+        punts = 0
     }
 })
 let jo = 0
+let punts = 0
 let ell = 0
+music.setBuiltInSpeakerEnabled(true)
 radio.setGroup(1)
 music.setVolume(255)
 ell = 0
-let punts = 0
+punts = 0
+basic.showNumber(punts)
